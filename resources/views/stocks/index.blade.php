@@ -16,7 +16,7 @@
             <th>Purchase Date</th>
             <th colspan="3">Actions</th>
         </tr>
-        </thead>	
+        </thead>
         <tbody>
         @foreach ($stocks as $stock)
             <tr>
@@ -31,7 +31,7 @@
                 <td><a href="{{route('stocks.edit',$stock->id)}}" class="btn btn-warning">Update</a></td>
                 <td>
                     {!! Form::open(['method' => 'DELETE', 'route'=>['stocks.destroy', $stock->id]]) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                                       <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this Stock?')">
                     {!! Form::close() !!}
                 </td>
             </tr>

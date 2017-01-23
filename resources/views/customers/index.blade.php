@@ -4,9 +4,9 @@
     <h1>Customer</h1>
     <a href="{{url('/customers/create')}}" class="btn btn-success">Create Customer</a>
     <hr>
-	
+
     <table class="table table-striped table-bordered table-hover">
-	
+
         <thead>
         <tr class="bg-info">
             <th> Cust Number</th>
@@ -37,7 +37,7 @@
                 <td><a href="{{route('customers.edit',$customer->id)}}" class="btn btn-warning">Update</a></td>
                 <td>
                     {!! Form::open(['method' => 'DELETE', 'route'=>['customers.destroy', $customer->id]]) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+					<input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this Customer? This will also delete associated stocks, investments and mutual funds.')">
                     {!! Form::close() !!}
                 </td>
             </tr>

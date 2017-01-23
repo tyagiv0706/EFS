@@ -8,15 +8,19 @@ use App\Http\Requests;
 use App\Investment;
 use App\Stock;
 use App\Customer;
-
+use Auth;
 
 class InvestmentController extends Controller
 {
      public function index()
 	    {
-	        //
+
 	        $investments=Investment::all();
-	        return view('investments.index',compact('investments'));
+	        if(Auth::check())
+	        	        return view('investments.index',compact('investments'));
+	        else
+	        	        return view('/auth/login');
+
 	    }
 
 	    public function show($id)
@@ -42,16 +46,16 @@ class InvestmentController extends Controller
 	     */
 	    public function store(Request $request)
 	    {
-		
+
 		$this->validate($request, [
-	   'category' => 'required',	
+	   'category' => 'required',
 	   'description' => 'required',
 	   'acquired_value'=>'required',
-	   'acquired_date'=>'required',	
+	   'acquired_date'=>'required',
 	   'recent_value'=>'required',
-	   'recent_date'=>'required',	
+	   'recent_date'=>'required',
    ]);
-	   
+
 	       $investment= new Investment($request->all());
 	       $investment->save();
 

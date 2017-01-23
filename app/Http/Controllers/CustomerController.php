@@ -6,14 +6,22 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Customer;
+use App\Investment;
+use App\Stock;
+use App\mutualfunds;
+use Auth;
+
 
 class CustomerController extends Controller
 {
     public function index()
     {
-        //
+
         $customers=Customer::all();
-        return view('customers.index',compact('customers'));
+        	        if(Auth::check())
+        				return view('customers.index',compact('customers'));
+        	        else
+	        	        return view('/auth/login');
     }
 
     public function show($id)
@@ -33,22 +41,22 @@ class CustomerController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)   
+    public function store(Request $request)
     {
 	   $this->validate($request, [
-	   'name' => 'required',	
+	   'name' => 'required',
 	   'address' => 'required',
 	   'city'=>'required',
-	   'state'=>'required',	
+	   'state'=>'required',
 	   'zip'=>'required',
 	   'email'=>'required',
 	   'home_phone'=>'required',
 	   'cell_phone'=>'required',
 	   ]);
-	   
+
        $customer= new Customer($request->all());
        $customer->save();
-       
+
 	   return redirect('customers');
     }
 
@@ -75,8 +83,29 @@ class CustomerController extends Controller
 
     public function destroy($id)
     {
-        Customer::find($id)->delete();
-        return redirect('customers');
+      		//Deleting all stocks of the customer.
+	        $stocks = Stock::where('customer_id', $id)->lists('id');
+
+	        foreach ($stocks as $stock) {
+	                Stock::find($stock)->delete();
+	            }
+
+	        //Deleting all investments of the customer.
+	        $investments = Investment::where('customer_id', $id)->lists('id');
+
+	        foreach ($investments as $investment) {
+	                Investment::find($investment)->delete();
+	                }
+
+	        //Deleting all funds of the customer.
+	        $mutualfunds = mutualfunds::where('customer_id', $id)->lists('id');
+
+	        foreach ($mutualfunds as $mutualfund) {
+	                mutualfunds::find($mutualfund)->delete();
+                }
+
+    	    Customer::find($id)->delete();
+    	    return redirect('customers');
     }
 
     public function stringify($id)

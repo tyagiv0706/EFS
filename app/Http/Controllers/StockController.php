@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Stock;
 use App\Customer;
+use Auth;
 
 class StockController extends Controller
 {
@@ -14,12 +15,15 @@ class StockController extends Controller
     {
         //
         $stocks=Stock::all();
-        return view('stocks.index',compact('stocks'));
+        	        if(Auth::check())
+        				return view('stocks.index',compact('stocks'));
+        	        else
+	        	        return view('/auth/login');
     }
 
     public function show($id)
     {
-        
+
         $stock = Stock::findOrFail($id);
 
         return view('stocks.show',compact('stock'));
@@ -38,16 +42,16 @@ class StockController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)   
+    public function store(Request $request)
     {
 		$this->validate($request, [
-	   'symbol' => 'required',	
+	   'symbol' => 'required',
 	   'name' => 'required',
 	   'shares'=>'required',
-	   'purchase_price'=>'required',	
+	   'purchase_price'=>'required',
 	   'purchased'=>'required',
 	   ]);
-	   
+
 
        $stock= new Stock($request->all());
        $stock->save();

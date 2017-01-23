@@ -7,19 +7,24 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\mutualfunds;
 use App\Customer;
+use Auth;
+
 
 class MutualfundController extends Controller
 {
     public function index()
     {
-        
+
         $mutualfunds=mutualfunds::all();
-        return view('mutualfunds.index',compact('mutualfunds'));
+        	        if(Auth::check())
+        				return view('mutualfunds.index',compact('mutualfunds'));
+        	        else
+	        	        return view('/auth/login');
     }
 
     public function show($id)
     {
-        
+
         $mutualfunds = mutualfunds::findOrFail($id);
 
         return view('mutualfunds.show',compact('mutualfunds'));
@@ -38,15 +43,15 @@ class MutualfundController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)   
+    public function store(Request $request)
     {
 		$this->validate($request, [
         'name' => 'required',
         'units' => 'required',
 		'purchase_price' => 'required',
-		'purchased' => 'required',        
+		'purchased' => 'required',
     ]);
-	
+
        $mutualfunds= new mutualfunds($request->all());
        $mutualfunds->save();
 
