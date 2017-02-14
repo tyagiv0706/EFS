@@ -10,7 +10,8 @@
             <th>Cust No</th>
             <th>Cust Name</th>
             <th>Name</th>
-            <th>units</th>
+            <th>Symbol</th>
+			<th>Units</th>
             <th>Purchase price</th>
             <th>Purchase Date</th>
             <th colspan="3">Actions</th>
@@ -22,6 +23,7 @@
                 <td>{{ $mutualfunds->customer->cust_number }}</td>
                 <td>{{ $mutualfunds->customer->name }}</td>
                 <td>{{ $mutualfunds->name }}</td>
+				<td>{{ $mutualfunds->symbol }}</td>
                 <td>{{ $mutualfunds->units }}</td>
                 <td>{{ $mutualfunds->purchase_price }}</td>
                 <td>{{ $mutualfunds->purchased }}</td>

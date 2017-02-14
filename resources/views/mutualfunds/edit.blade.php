@@ -6,6 +6,10 @@
         {!! Form::label('name', 'Mutual Fund Name:') !!}
         {!! Form::text('name',null,['class'=>'form-control']) !!}
     </div>
+	<div class="form-group">
+        {!! Form::label('symbol', 'Symbol:') !!}
+        {!! Form::text('symbol',null,['class'=>'form-control']) !!}
+    </div>
     <div class="form-group">
         {!! Form::label('units', 'Units:') !!}
         {!! Form::text('units',null,['class'=>'form-control']) !!}

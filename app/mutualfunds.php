@@ -12,6 +12,7 @@ class mutualfunds extends Model
         'units',
         'purchase_price',
         'purchased',
+		'symbol',
 
     ];
 	

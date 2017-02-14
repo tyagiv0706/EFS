@@ -19,6 +19,10 @@
         {!! Form::label('name', 'Name:') !!}
         {!! Form::text('name',null,['class'=>'form-control']) !!}
     </div>
+	<div class="form-group">
+        {!! Form::label('symbol', 'Symbol:') !!}
+        {!! Form::text('symbol',null,['class'=>'form-control']) !!}
+    </div>
     <div class="form-group">
         {!! Form::label('units', 'Number of units:') !!}
         {!! Form::text('units',null,['class'=>'form-control']) !!}
